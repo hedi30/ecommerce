@@ -3,21 +3,47 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loging } from "../../store/Reducers/authReducer";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
+import { useLocation } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const from = location.state?.from || "/";
+
+  const { errorMessage, successMessage, isAuthenticated } = useSelector(
+    (state) => state.auth,
+  );
+
   const [state, setState] = useState({
     email: "",
     password: "",
   });
+
+  // Single useEffect for handling navigation and messages
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (successMessage) {
+        toast.success(successMessage);
+      }
+      navigate(from);
+    }
+    if (errorMessage) {
+      toast.error(errorMessage);
+    }
+  }, [isAuthenticated, successMessage, errorMessage, navigate, from]);
+
   const inputHandler = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     dispatch(loging(state));
   };
-
   return (
     <div className="min-w-screen min-h-screen bg-[#cdcae9] flex justify-center items-center ">
       <div className="w-[350px] text-[#ffffff] p-2">

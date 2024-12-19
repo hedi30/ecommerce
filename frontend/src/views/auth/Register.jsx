@@ -1,19 +1,33 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { register } from "../../store/Reducers/authReducer";
+import { toast } from "react-hot-toast";
 const Register = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
   const [state, setState] = useState({
     name: "",
     email: "",
     password: "",
   });
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
+
   const inputHandler = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
   const submit = (e) => {
     e.preventDefault();
-    console.log(state);
+    dispatch(register(state));
   };
+
   return (
     <div className="min-w-screen min-h-screen bg-[#cdcae9] flex justify-center items-center ">
       <div className="w-[350px] text-[#ffffff] p-2">
