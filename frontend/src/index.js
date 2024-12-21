@@ -6,6 +6,7 @@ import "./index.css";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import store from "./store/index";
+
 const App = lazy(() => import("./App"));
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

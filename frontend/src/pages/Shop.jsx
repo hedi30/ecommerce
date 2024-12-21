@@ -15,7 +15,22 @@ const Shop = () => {
     "Machine Guns",
     "Antique Firearms",
   ];
-  const [state, setState] = useState({ values: [50, 1500] });
+
+  const [sortOrder, setSortOrder] = useState("low-to-high");
+
+  const [state, setState] = useState({ values: [50, 30000] });
+
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  const handleCategoryChange = (e) => {
+    const category = e.target.id;
+    if (e.target.checked) {
+      setSelectedCategories([...selectedCategories, category]);
+    } else {
+      setSelectedCategories(selectedCategories.filter((c) => c !== category));
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -39,8 +54,16 @@ const Shop = () => {
               </h2>
               <div className="py-2">
                 {gunCategories.map((c, i) => (
-                  <div className="flex justify-start items-center gap-2 py-1">
-                    <input type="checkbox" id={c} />
+                  <div
+                    className="flex justify-start items-center gap-2 py-1"
+                    key={i}
+                  >
+                    <input
+                      checked={selectedCategories.includes(c)}
+                      onChange={handleCategoryChange}
+                      type="checkbox"
+                      id={c}
+                    />
                     <label
                       className="text-slate-600 block cursor-pointer"
                       htmlFor={c}
@@ -57,7 +80,7 @@ const Shop = () => {
                 <Range
                   step={5}
                   min={50}
-                  max={1500}
+                  max={30000}
                   values={state.values}
                   onChange={(values) => setState({ values })}
                   renderTrack={({ props, children }) => (
@@ -85,10 +108,7 @@ const Shop = () => {
               </div>
 
               <div className="py-3 flex flex-col gap-4 ">
-                <h2 className="text-3xl font-bold mb-3 text-slate-600 ">
-                  {" "}
-                  rating
-                </h2>{" "}
+                <h2 className="text-3xl font-bold mb-3 text-slate-600 "> </h2>{" "}
               </div>
             </div>
             <div className="w-9/12 ">
@@ -96,14 +116,14 @@ const Shop = () => {
                 <div className="py-4 bg-white mb-10 px-3 rounded-md flex justify-between items-start border">
                   <h2 className="text-lg font-medium text-slate-600">
                     {" "}
-                    15 GUNS{" "}
+                    GUNS {}
                   </h2>
 
                   <div className="flex justify-center items-center gap-3 ">
                     <select
                       className="p-1 border outline-0 text-slate-600 font-semibold "
-                      name=""
-                      id=""
+                      value={sortOrder}
+                      onChange={(e) => setSortOrder(e.target.value)}
                     >
                       <option value="low-to-high"> Low to high price </option>
                       <option value="high-to-low"> High to low price </option>
@@ -112,7 +132,11 @@ const Shop = () => {
                 </div>
               </div>
               <div className="pl-8 pb-8 ">
-                <Gun />
+                <Gun
+                  sortOrder={sortOrder}
+                  selectedCategories={selectedCategories}
+                  priceRange={state.values}
+                />
               </div>
             </div>
           </div>

@@ -29,21 +29,26 @@ const Register = () => {
   };
 
   return (
-    <div className="min-w-screen min-h-screen bg-[#cdcae9] flex justify-center items-center ">
-      <div className="w-[350px] text-[#ffffff] p-2">
-        <div className="bg-[#6f68d1] p-4 rounded-md">
-          <h2 className="text-xl mb-3 font-bold">Welcome</h2>
+    <div className="min-w-screen min-h-screen bg-gray-900 flex justify-center items-center">
+      <div className="w-[400px] text-gray-200 p-4">
+        <div className="bg-gray-800 p-8 rounded-lg shadow-2xl border border-gray-700">
+          <h2 className="text-2xl mb-4 font-bold text-white">Welcome</h2>
 
-          <p className="text-sm mb-3 font-medium">please register </p>
+          <p className="text-sm mb-6 text-gray-400">Please create an account</p>
 
           <form onSubmit={submit}>
-            <div className="flex flex-col w-full gap-1 mb-3">
-              <label htmlFor="name">Name </label>
+            <div className="flex flex-col w-full gap-2 mb-4">
+              <label
+                htmlFor="name"
+                className="text-sm font-medium text-gray-400"
+              >
+                Name
+              </label>
               <input
-                className="px-3 py-2 outline-none border border-slate-700 bg-transparent rounded-md"
+                className="px-4 py-3 outline-none border border-gray-700 bg-gray-900 rounded-lg focus:border-indigo-500 transition-colors"
                 type="text"
                 name="name"
-                placeholder="name"
+                placeholder="Enter your name"
                 onChange={inputHandler}
                 value={state.name}
                 id="name"
@@ -51,42 +56,55 @@ const Register = () => {
               ></input>
             </div>
 
-            <div className="flex flex-col w-full gap-1 mb-3">
-              <label htmlFor="email">Email </label>
+            <div className="flex flex-col w-full gap-2 mb-4">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium text-gray-400"
+              >
+                Email
+              </label>
               <input
-                className="px-3 py-2 outline-none border border-slate-700 bg-transparent rounded-md"
+                className="px-4 py-3 outline-none border border-gray-700 bg-gray-900 rounded-lg focus:border-indigo-500 transition-colors"
                 type="email"
                 onChange={inputHandler}
                 value={state.email}
                 name="email"
-                placeholder="email"
+                placeholder="Enter your email"
                 id="email"
                 required
               ></input>
             </div>
 
-            <div className="flex flex-col w-full gap-1 mb-3">
-              <label htmlFor="password">password </label>
+            <div className="flex flex-col w-full gap-2 mb-6">
+              <label
+                htmlFor="password"
+                className="text-sm font-medium text-gray-400"
+              >
+                Password
+              </label>
               <input
-                className="px-3 py-2 outline-none border border-slate-700 bg-transparent rounded-md"
+                className="px-4 py-3 outline-none border border-gray-700 bg-gray-900 rounded-lg focus:border-indigo-500 transition-colors"
                 type="password"
                 onChange={inputHandler}
                 value={state.password}
                 name="password"
-                placeholder="password"
+                placeholder="Enter your password"
                 id="password"
                 required
               ></input>
             </div>
 
-            <button className="bg-slate-800 w-full hover:shadow-blue-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3">
+            <button className="bg-black w-full text-white rounded-lg px-8 py-3 mb-4 font-medium">
               Register
             </button>
 
-            <div className="flex items-center mb-3 gap-3 justify-center">
-              <p>
-                Already have an account?
-                <Link className="font-bold" to="/login">
+            <div className="flex items-center gap-2 justify-center text-sm">
+              <p className="text-gray-400">
+                Already have an account?{" "}
+                <Link
+                  className="text-indigo-400 hover:text-indigo-300 font-medium"
+                  to="/login"
+                >
                   Login
                 </Link>
               </p>
